@@ -1,0 +1,20 @@
+set serveroutput on
+-- criando uma função
+CREATE OR REPLACE FUNCTION MULT
+-- declarando os parâmetros - entrada de dados
+(V_1 IN NUMBER, V_2 IN NUMBER, V_3 IN NUMBER, V_4 IN NUMBER)
+-- declarando a saída de dados
+RETURN NUMBER 
+
+IS
+-- variavel para processamento dentro da função
+V_M NUMBER;
+
+BEGIN
+    V_M := (V_1 + V_2+V_3+V_4)/2;
+    -- armazenando dados para exportação do resultado
+    RETURN V_M;
+END MULT;
+
+-- chamando e executando uma função
+    SELECT MULT(20,2,50,2) FROM DUAL;

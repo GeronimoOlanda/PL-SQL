@@ -1,0 +1,8 @@
+set serveroutput on;
+begin
+    for v_conta in 1..100 loop
+        if (mod(v_conta,2) = 0) then
+            dbms_output.put_line(v_conta);
+        end if;
+    end loop;
+end;

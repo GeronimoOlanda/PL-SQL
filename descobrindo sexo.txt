@@ -1,0 +1,11 @@
+declare
+    sexo char(1) :=&Entrada;
+begin
+  if (sexo = 'm') then
+      dbms_output.put_line('masculino');
+    elsif (sexo = 'f') then
+      dbms_output.put_line('feminino');
+    else
+      dbms_output.put_line('sexo inexistente');
+ end if;
+end;

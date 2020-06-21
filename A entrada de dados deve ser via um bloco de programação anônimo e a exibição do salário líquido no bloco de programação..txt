@@ -1,0 +1,18 @@
+create or replace function calc_sal_liq
+(sal_br in number)
+return number
+is
+    sal_liq number;
+begin
+     if sal_br <= 5000 then
+        sal_liq := sal_br;
+    elsif sal_br > 5000 and sal_br <= 10000 then
+        sal_liq := sal_br - (sal_br * 0.07);
+    elsif sal_br > 10000 and sal_br <= 25000 then
+        sal_liq := sal_br - (sal_br * 0.12);
+    else
+        sal_liq := sal_br - (sal_br * 0.2);
+    end if;
+    return sal_liq;
+end calc_sal_liq;
+SELECT calc_sal_liq(11000) FROM DUAL;

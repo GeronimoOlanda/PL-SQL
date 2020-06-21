@@ -1,0 +1,34 @@
+create or replace function mes
+(n_mes in number)
+return varchar2
+is
+    nome_mes varchar2(20);
+begin
+    if n_mes = 1 then
+        return 'Janeiro';
+    elsif n_mes = 2 then
+        return 'Fevereiro';
+    elsif n_mes = 3 then
+        return 'Março';
+    elsif n_mes = 4 then
+        return 'Abril';
+    elsif n_mes = 5 then
+        return 'Maio';
+    elsif n_mes = 6 then
+        return 'Junho';
+    elsif n_mes = 7 then
+        return 'Julho';
+    elsif n_mes = 8 then
+        return 'Agosto';
+    elsif n_mes = 9 then
+        return 'Setembro';
+    elsif n_mes = 10 then
+        return 'Outubro';
+    elsif n_mes = 11 then
+        return 'Novembro';
+    elsif n_mes = 12 then
+        return 'Dezembro';
+    else
+        return 'Mês inválido';
+    end if;
+end mes;

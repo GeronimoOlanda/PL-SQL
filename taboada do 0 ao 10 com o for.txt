@@ -1,0 +1,14 @@
+set serveroutput on;
+declare
+entrada number(10) :=&entrada;
+calc number(2);
+i number(10);
+
+begin
+for i in 0..10 loop
+calc  := entrada * i;
+dbms_output.put_line(calc);
+
+end loop;
+
+end;

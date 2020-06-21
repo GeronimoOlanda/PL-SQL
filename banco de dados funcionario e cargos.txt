@@ -1,0 +1,81 @@
+set serveroutput on
+drop table cargo cascade constraints;
+drop table funcionario cascade constraints;
+
+/* create table é utilizado para criar as tabelas */
+create table cargo(
+cd_cargo number(4) primary key,
+mn_cargo varchar2(50)not null unique,
+salario number(8,2)not null);
+
+create table funcionario(
+mat_fun number(4)primary key,
+nm_func varchar2(35) not null,
+dat_nasc date not null,
+uf char(2)not null,
+cd_cargo number(4) references cargo);
+
+/*desc é utilizado para criar e exibir a tabela */
+
+begin
+insert into cargo values(1,'DBA',15000);
+insert into cargo values(2,'Prog. Web',1000);
+insert into cargo values(3,'Analista de Dados',8500);
+insert into cargo values(4,'Prog Java',7000);
+end;
+
+begin
+insert into funcionario values(10,'Joaquim','10/10/80','SP',1);
+insert into funcionario values(20,'Marcia','14/02/90','BA',2);
+insert into funcionario values(30,'Rose','22/06/2000','MG',4);
+insert into funcionario values(40,'Guilherme','03/08/2000','MS',3);
+end;
+
+update cargo set
+
+salario =  salario * 1.15;
+
+update funcionario set
+dat_nasc = dat_nasc - 12;
+
+
+
+
+declare 
+nome varchar(50);
+cargo number(4) := &CodCargo;
+
+begin 
+select mn_cargo into nome from cargo where cd_cargo = cargo;
+dbms_output.put_line('Cargo 1:' ||nome);
+end;
+
+-- EXERCICIO ATUALIZANDO SALARIO
+begin 
+update cargo set salario = salario + 1000 where cd_cargo = 4;
+end;
+
+select * from cargo where cd_cargo=4;
+select * from funcionario;
+
+
+-- exercicio SEXO MASCULINO OU FEMININO
+-- UTILIZANDO CONDIÇÕES
+declare
+
+d varchar(2) := &Pesquisa;
+m varchar(2) := 'MA';
+f varchar(2) := 'FA';
+
+begin
+
+dbms_output.put_line('Sexo:' ||d);
+if (d = m) then
+    dbms_output.put_line('Voce é broh');    
+    elsif (d = f) then
+        dbms_output.put_line('Voce é uma broah');
+else
+    dbms_output.put_line('indefinido');
+end if; 
+
+end;

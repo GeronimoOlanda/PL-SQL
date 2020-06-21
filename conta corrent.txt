@@ -1,0 +1,49 @@
+set serveroutput on;
+drop table conta cascade constraints;
+create table conta (Cd_conta Number(3) primary key,
+                    Saldo_conta Number(10,2));
+
+begin
+    insert into conta values(111,1000);
+    insert into conta values(112,0);
+end;
+
+
+declare
+    v_cd conta.cd_conta%type := 100;   
+    v_saldo conta.saldo_conta%type;      
+    v_saque conta.saldo_conta%type := 1;
+begin
+    select saldo_conta into v_saldo from conta where cd_conta = v_cd;
+    if v_saque < v_saldo then
+        dbms_output.put_line('Saque lilberado');
+
+        update conta set saldo_conta = saldo_conta - v_saque where cd_conta = v_cd;
+    end if;
+    exception
+        when no_data_found then
+        dbms_output.put_line('Dados incorretos, tente novamente....');
+end;
+
+declare
+    v_cd conta.cd_conta%type := 111;     
+    v_saldo conta.saldo_conta%type;      
+    v_saque conta.saldo_conta%type := 1000; 
+begin
+
+    select saldo_conta into v_saldo from conta where cd_conta = v_cd;
+    if v_saque <= v_saldo then
+        dbms_output.put_line('Saque lilberado');
+        
+        update conta set saldo_conta = saldo_conta - v_saque where cd_conta = v_cd;
+    elsif v_saque > v_saldo then
+        dbms_output.put_line('Saque maior que saldo, permissão de saque total: '||v_saldo);
+        update conta set saldo_conta = 0 where cd_conta = v_cd;
+    else
+        dbms_output.put_line('Em construção');
+    end if;
+    exception
+        when no_data_found then
+        dbms_output.put_line('Dados incorretos, tente novamente....');
+end;
+select * from conta;

@@ -1,0 +1,10 @@
+set serveroutput on;
+declare
+    v_contador number(10,2) := 1;
+begin
+
+while v_contador <= 10 loop
+dbms_output.put_line(v_contador);
+v_contador := v_contador + 1;
+    end loop;
+end;

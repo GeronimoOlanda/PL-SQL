@@ -1,0 +1,8 @@
+declare
+v_salario Constant number (8,2) := 1039.00;
+v_salnovo number (8,2);
+begin
+v_salnovo := v_salario*1.25;
+dbms_output.put_line ('salario novo é '|| v_salnovo);
+dbms_output.put_line ('salario antigo era '|| v_salario);
+end;

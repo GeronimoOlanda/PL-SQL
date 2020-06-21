@@ -1,0 +1,26 @@
+set serveroutput on;
+declare
+v_compra     number(10,2):= &entrada;
+v_entrada    number(10,2);
+v_parcela    number(2)   := &parcelas;
+v_restante   number(10,2);
+v_valorjuros number(10,2);
+v_valparcela number(10,2);
+Begin
+v_entrada  := (v_compra * 0.2);
+v_restante := (v_compra - v_entrada);
+IF v_parcela = 6 THEN
+v_valorjuros := (v_restante + v_restante*0.10)/v_parcela;
+dbms_output.put_line ('Valor em 6x com acréscimo de 10% é: '|| v_valorjuros ||' reais por parcela');
+ELSIF
+v_parcela = 12 THEN
+v_valorjuros := (v_restante + v_restante*0.15)/v_parcela;
+dbms_output.put_line ('Valor em 12x com acréscimo de 15% é: '|| v_valorjuros ||' reais por parcela');
+ELSIF
+v_parcela = 18 THEN
+v_valorjuros := (v_restante + v_restante*0.20)/v_parcela;
+dbms_output.put_line ('Valor em 18x com acréscimo de 20% é: '|| v_valorjuros ||' reais por parcela');     
+ELSE
+dbms_output.put_line ('Valor de parcela inválida');  
+END IF;
+END;

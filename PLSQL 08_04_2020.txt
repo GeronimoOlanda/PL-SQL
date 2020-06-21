@@ -1,0 +1,144 @@
+
+
+begin
+    dbms_output.put_line('oi');
+    dbms_output.put_line('oi mundo...');
+    dbms_output.put_line(3+5);
+end;
+
+----------
+
+declare
+    v_sal Constant number (8,2) :=1039.00;
+    v_sal_novo number (8,2);
+begin
+    v_sal_novo := v_sal*1.25;
+    dbms_output.put_line('salario novo e: '|| v_sal_novo);
+    dbms_output.put_line('salario antigo era: '|| v_sal);
+end;
+
+----------
+
+declare
+    v_parcelas constant number (2) :=10;
+    v_valor number (10,2):=1000;
+    v_total number (10,2);
+begin
+    v_total := (v_valor+(v_valor*0.03))/v_parcelas;
+    dbms_output.put_line('valor em 10x com acrescimo de 3% e: '|| v_total || ' por parcela');
+end;
+
+----------
+
+select sysdate from dual;
+
+
+
+----------
+
+declare
+        v_nota1 number(4,2) := 1.0;
+        v_nota2 number(4,2) := 1.0;
+begin
+        if (v_nota1 + v_nota2) >= 5 then
+            dbms_output.put_line ('maior ou igual a 5');
+        else
+            dbms_output.put_line ('menor que 5');
+        end if;
+end;
+----------
+
+declare
+    sexo char(1) := 'M';
+begin
+        if (sexo = 'M' or sexo = 'm') then
+            dbms_output.put_line('masculino');
+            elsif (sexo = 'F' or sexo = 'f') then
+                dbms_output.put_line('feminino');
+            else
+                dbms_output.put_line('sexo inexistente');
+        end if;
+end;
+
+----------
+
+DECLARE
+v_compra     number(10,2);
+v_entrada    number(10,2);
+v_parcela    number(2)   := 6;
+v_restante   number(10,2);
+v_valorjuros number(10,2);
+v_valparcela number(10,2);
+BEGIN
+v_entrada  := (v_compra * 0.2);
+v_restante := (v_compra - v_entrada);
+IF v_parcela = 6 THEN
+v_valorjuros := (v_restante + v_restante*0.10)/v_parcela;
+dbms_output.put_line ('Valor em 6x com acréscimo de 10% é: '|| v_valorjuros ||' reais por parcela');
+ELSIF
+v_parcela = 12 THEN
+v_valorjuros := (v_restante + v_restante*0.15)/v_parcela;
+dbms_output.put_line ('Valor em 12x com acréscimo de 15% é: '|| v_valorjuros ||' reais por parcela');
+ELSIF
+v_parcela = 18 THEN
+v_valorjuros := (v_restante + v_restante*0.20)/v_parcela;
+dbms_output.put_line ('Valor em 18x com acréscimo de 20% é: '|| v_valorjuros ||' reais por parcela');     
+ELSE
+dbms_output.put_line ('Valor de parcela inválida');  
+END IF;
+END;
+
+----------
+
+create table aluno (ra_aluno number(4) primary key,
+                    nome_aluno varchar(30) not null,
+                    nota_1 number(4,2),
+                    nota_2 number(4,2),
+                    nota_media number(4,2),
+                    faltas_aula number (3),
+                    c_hora number (3),
+                    situacao varchar (30));
+
+select * from aluno;
+drop table aluno;
+
+begin
+    insert into aluno values (1,'Amauri',10,10,null,0,100,null);
+    insert into aluno values (2,'Sandra',7,7,null,90,100,null);
+    insert into aluno values (3,'João',1,1,null,0,100,null);
+    insert into aluno values (4,'Ana',5,5,null,20,100,null);
+end;
+
+declare
+    v_ra number(4):=4;
+    v_nota1 number (4,2);
+    v_nota2 number (4,2);
+    v_media number (4,2);
+begin
+    select nota_1, nota_2 into v_nota1, v_nota2 from aluno where ra_aluno = v_ra;
+    v_media := (v_nota1+v_nota2)/2;
+    update aluno set nota_media = v_media where ra_aluno = v_ra;
+end;
+
+declare
+    v_ra number (4):=4;
+    v_media number (4,2);
+    v_situacao varchar(30);
+    v_c_hora number(3);
+    v_faltas number (3);
+begin
+    select nota_media, situacao, c_hora, faltas_aula into v_media, v_situacao, v_c_hora, v_faltas from aluno where ra_aluno =v_ra;
+    if v_faltas > v_c_hora*0.25 then
+        dbms_output.put_line('aluno reprovado por faltas');
+    elsif v_media >= 7 and v_faltas <= v_c_hora*0.25 then
+        dbms_output.put_line('aluno aprovado');
+    elsif v_media < 5 then
+        dbms_output.put_line('aluno reprovado por nota');
+    elsif v_media >=5 and v_media <7 then
+        dbms_output.put_line('aluno de pra');
+    else
+        dbms_output.put_line('erro generico');
+    end if;
+end;
+
+----------
